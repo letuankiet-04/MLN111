@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập trắc nghiệm | Triết học Mác - Lênin (Chương 2)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .page-header {
+            padding: 120px 0 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .mode-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 28px 0 10px;
+            flex-wrap: wrap;
+        }
+        .mode-btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light-2);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .mode-btn:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        .mode-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+        .study-sheet-container {
+            display: none;
+            max-width: 960px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        .sheet-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+        }
+        .sheet-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+        .sheet-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .sheet-num-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--gradient-1);
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .sheet-tag {
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .sheet-q-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .sheet-ans-box {
+            background: rgba(16, 185, 129, 0.12);
+            border-left: 4px solid var(--success);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            color: #d1fae5;
+            font-weight: 500;
+        }
+        .sheet-ans-label {
+            color: var(--success);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .sheet-notes-box {
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 8px;
+            padding: 16px 20px;
+            color: var(--light-2);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+        .sheet-notes-box strong {
+            color: var(--accent);
+        }
+        .sheet-notes-box ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+        .back-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--light-2);
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .back-nav-btn:hover {
+            color: #fff;
+            background: rgba(99, 102, 241, 0.25);
+            border-color: var(--primary);
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="particles-bg">
+        <canvas id="particles-canvas"></canvas>
+    </div>
+
+    <!-- Top Navbar -->
+    <nav class="navbar scrolled" id="navbar" style="position: fixed; top: 0; width: 100%; z-index: 100;">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon"><i class="fas fa-book-open"></i></span>
+                <span class="logo-text">MLN<span class="logo-dot">.</span></span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a href="index.html" class="back-nav-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Trang chủ</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="hero-badge animate-fade-in" style="display: inline-flex; margin-bottom: 16px;">
+                <span class="badge-dot"></span>
+                <span>Chuyên đề Ôn tập & Kiểm tra</span>
+            </div>
+            <h1 class="hero-title" style="font-size: 2.6rem; margin-bottom: 14px;">
+                Ôn tập <span class="gradient-text">trắc nghiệm</span><br>
+                Phép biện chứng duy vật
+            </h1>
+            <p class="hero-subtitle" style="max-width: 700px; margin: 0 auto; font-size: 1.05rem; color: var(--light-2);">
+                Hệ thống 10 câu hỏi cốt lõi bao quát đầy đủ 2 nguyên lý và 6 cặp phạm trù của phép biện chứng duy vật Mác - Lênin.
+            </p>
+
+            <!-- Mode Switcher -->
+            <div class="mode-switcher">
+                <button class="mode-btn active" id="btn-mode-quiz">
+                    <i class="fas fa-tasks"></i>
+                    <span>Luyện thi trắc nghiệm tương tác</span>
+                </button>
+                <button class="mode-btn" id="btn-mode-sheet">
+                    <i class="fas fa-book-reader"></i>
+                    <span>Xem đề cương & Đáp án đầy đủ</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODE 1: Interactive Quiz -->
+    <main id="quiz-mode-container" style="padding-bottom: 80px;">
+        <div class="container">
+            <div class="quiz-wrapper">
+                <div class="quiz-topbar">
+                    <div class="quiz-info">
+                        <span class="quiz-badge" id="quiz-badge-category">Nguyên lý</span>
+                        <span class="quiz-counter" id="quiz-counter">Câu 1 / 10</span>
+                    </div>
+                    <div class="quiz-score-pill">
+                        <i class="fas fa-trophy"></i>
+                        <span>Điểm: <strong id="quiz-current-score">0</strong>/10</span>
+                    </div>
+                </div>
+
+                <div class="quiz-progress-track">
+                    <div class="quiz-progress-fill" id="quiz-progress-fill" style="width: 10%;"></div>
+                </div>
+
+                <div class="quiz-nav-pills" id="quiz-nav-pills"></div>
+
+                <div class="quiz-card" id="quiz-card">
+                    <div class="quiz-question-wrap">
+                        <h3 class="quiz-question-text" id="quiz-question-text"></h3>
+                    </div>
+
+                    <div class="quiz-options-list" id="quiz-options-list"></div>
+
+                    <div class="quiz-explanation-box" id="quiz-explanation-box" style="display: none;">
+                        <div class="quiz-explanation-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Giải thích & Đề cương ôn tập</h4>
+                        </div>
+                        <div class="quiz-explanation-body" id="quiz-explanation-body"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-controls" id="quiz-controls">
+                    <button class="btn btn-secondary" id="quiz-prev-btn" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Câu trước</span>
+                    </button>
+                    <button class="btn btn-secondary" id="quiz-reset-btn">
+                        <i class="fas fa-redo"></i>
+                        <span>Làm lại từ đầu</span>
+                    </button>
+                    <button class="btn btn-primary" id="quiz-next-btn">
+                        <span>Câu tiếp theo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="quiz-result-card" id="quiz-result-card" style="display: none;">
+                    <div class="result-icon-wrap">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 class="result-title">Hoàn thành bài ôn tập!</h3>
+                    <p class="result-score-text">Bạn đã đạt <span id="final-score">0</span> / 10 điểm</p>
+                    <p class="result-message" id="final-message"></p>
+                    <div class="result-actions">
+                        <button class="btn btn-primary" id="quiz-restart-btn">
+                            <i class="fas fa-undo"></i>
+                            <span>Luyện tập lại</span>
+                        </button>
+                        <button class="btn btn-secondary" id="quiz-view-sheet-btn">
+                            <i class="fas fa-book-reader"></i>
+                            <span>Xem lại toàn bộ đề cương</span>
+                        </button>
+                        <a href="index.html" class="btn btn-secondary">
+                            <i class="fas fa-home"></i>
+                            <span>Về trang chủ</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODE 2: Study Sheet -->
+    <section class="study-sheet-container" id="sheet-mode-container">
+        <div id="sheet-content-list">
+            <!-- Dynamic render from JS -->
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn btn-primary" id="sheet-back-to-quiz">
+                <i class="fas fa-tasks"></i>
+                <span>Chuyển sang làm bài kiểm tra</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 40px;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>MLN<span class="logo-dot">.</span></span>
+                    </div>
+                    <p class="footer-desc">
+                        Chuyên đề Ôn tập Triết học Mác - Lênin (Chương 2: Chủ nghĩa duy vật biện chứng)
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Điều hướng</h4>
+                        <ul>
+                            <li><a href="index.html">Trang chủ</a></li>
+                            <li><a href="index.html#principles">Nguyên lý</a></li>
+                            <li><a href="index.html#categories">Phạm trù</a></li>
+                            <li><a href="ontap.html">Ôn tập trắc nghiệm</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 · Hệ thống ôn tập Triết học Mác - Lênin. Thực hiện với tư duy biện chứng.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Setup Page Specific Mode Switching
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnModeQuiz = document.getElementById('btn-mode-quiz');
+            const btnModeSheet = document.getElementById('btn-mode-sheet');
+            const quizContainer = document.getElementById('quiz-mode-container');
+            const sheetContainer = document.getElementById('sheet-mode-container');
+            const sheetList = document.getElementById('sheet-content-list');
+            const backToQuizBtn = document.getElementById('sheet-back-to-quiz');
+            const viewSheetBtn = document.getElementById('quiz-view-sheet-btn');
+
+            // Render Study Sheet content from window.quizData if available
+            const allQuizData = window.quizData || (typeof quizData !== 'undefined' ? quizData : null);
+            if (allQuizData && sheetList) {
+                const letters = ['A', 'B', 'C', 'D'];
+                sheetList.innerHTML = allQuizData.map((q, idx) => `
+                    <article class="sheet-card">
+                        <div class="sheet-card-header">
+                            <span class="sheet-num-badge">${idx + 1}</span>
+                            <span class="sheet-tag">${q.category}</span>
+                        </div>
+                        <h3 class="sheet-q-text">${q.question}</h3>
+                        <div class="sheet-ans-box">
+                            <span class="sheet-ans-label"><i class="fas fa-check-circle"></i> Đáp án đúng: ${letters[q.answer]}.</span>
+                            ${q.options[q.answer]}
+                        </div>
+                        <div class="sheet-notes-box">
+                            ${q.explanation}
+                        </div>
+                    </article>
+                `).join('');
+            }
+
+            function switchMode(isQuiz) {
+                if (isQuiz) {
+                    btnModeQuiz.classList.add('active');
+                    btnModeSheet.classList.remove('active');
+                    quizContainer.style.display = 'block';
+                    sheetContainer.style.display = 'none';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    btnModeSheet.classList.add('active');
+                    btnModeQuiz.classList.remove('active');
+                    quizContainer.style.display = 'none';
+                    sheetContainer.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            btnModeQuiz.addEventListener('click', () => switchMode(true));
+            btnModeSheet.addEventListener('click', () => switchMode(false));
+            if (backToQuizBtn) backToQuizBtn.addEventListener('click', () => switchMode(true));
+            if (viewSheetBtn) viewSheetBtn.addEventListener('click', () => switchMode(false));
+        });
+    </script>
+</body>
+</html>
