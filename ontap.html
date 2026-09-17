@@ -152,6 +152,11 @@
     </style>
 </head>
 <body>
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress-container">
+        <div id="reading-progress-bar"></div>
+    </div>
+
     <div class="particles-bg">
         <canvas id="particles-canvas"></canvas>
     </div>
@@ -197,6 +202,20 @@
                     <i class="fas fa-book-reader"></i>
                     <span>Xem đề cương & Đáp án đầy đủ</span>
                 </button>
+            </div>
+
+            <!-- Quiz Hero Visual Banner -->
+            <div class="quiz-hero-banner" style="margin-top: 32px; max-width: 800px; margin-left: auto; margin-right: auto; border-radius: var(--radius); overflow: hidden; position: relative; cursor: pointer; border: 1px solid var(--glass-border); transition: var(--transition);">
+                <img src="assets/images/quiz_hero.jpg" alt="Ôn tập Triết học Mác - Lênin" loading="lazy" style="width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 24px 28px;">
+                    <div>
+                        <p style="color: var(--light); font-size: 1.05rem; font-weight: 600; margin-bottom: 4px;">
+                            <i class="fas fa-graduation-cap" style="color: var(--accent); margin-right: 8px;"></i>
+                            10 câu hỏi cốt lõi · 2 Nguyên lý · 6 Cặp phạm trù
+                        </p>
+                        <p style="color: var(--light-2); font-size: 0.88rem;">Hệ thống ôn tập toàn diện kiến thức Phép biện chứng duy vật</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>

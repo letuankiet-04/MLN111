@@ -191,6 +191,11 @@
         const panes = $$('.tab-pane');
         if (!btns.length) return;
 
+        window.switchCategoryTab = function(tabId) {
+            btns.forEach((b) => b.classList.toggle('active', b.dataset.tab === tabId));
+            panes.forEach((p) => p.classList.toggle('active', p.id === tabId));
+        };
+
         btns.forEach((btn) => {
             btn.addEventListener('click', () => {
                 const tab = btn.dataset.tab;
@@ -202,6 +207,180 @@
                     target.classList.add('active');
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
+            });
+        });
+    }
+
+    // ============ Reading Progress ============
+    function updateReadingProgress() {
+        const bar = $('#reading-progress-bar');
+        if (!bar) return;
+        const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollTotal <= 0) return;
+        const pct = (window.scrollY / scrollTotal) * 100;
+        bar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    }
+
+    // ============ Lightbox Modal ============
+    function initLightbox() {
+        const modal = $('#lightbox-modal');
+        const img = $('#lightbox-img');
+        const title = $('#lightbox-title');
+        const desc = $('#lightbox-desc');
+        const closeBtn = $('#lightbox-close-btn');
+
+        if (!modal || !img) return;
+
+        function openLightbox(src, titleText, descText) {
+            img.src = src;
+            img.alt = titleText || 'Hình ảnh minh họa triết học';
+            if (title) title.textContent = titleText || '';
+            if (desc) desc.textContent = descText || '';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        $$('.open-lightbox, .visual-card-banner, .ai-hero-banner').forEach((el) => {
+            el.addEventListener('click', () => {
+                const src = el.dataset.img || el.querySelector('img')?.src;
+                const t = el.dataset.title || el.querySelector('.visual-card-caption, h3')?.textContent || 'Minh họa Triết học';
+                const d = el.dataset.desc || el.querySelector('p')?.textContent || '';
+                if (src) openLightbox(src, t, d);
+            });
+        });
+
+        if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // ============ Quick Search ============
+    function initQuickSearch() {
+        const input = $('#concept-search-input');
+        const clearBtn = $('#search-clear-btn');
+        const tags = $$('.search-tag-chip');
+        if (!input) return;
+
+        const conceptIndex = [
+            {
+                keywords: ['mối liên hệ', 'lien he', 'pho bien', 'nguyên lý 1', 'nguyen ly 1', 'toàn diện', 'lich su cu the'],
+                targetId: 'principle-1-card',
+                tabId: null
+            },
+            {
+                keywords: ['phát triển', 'phat trien', 'nguyên lý 2', 'nguyen ly 2', 'vận động', 'xoáy ốc'],
+                targetId: 'principle-2-card',
+                tabId: null
+            },
+            {
+                keywords: ['siêu hình', 'sieu hinh', 'đối chiếu', 'so sanh', 'phương pháp'],
+                targetId: 'comparison-box',
+                tabId: null
+            },
+            {
+                keywords: ['cái riêng', 'cái chung', 'đơn nhất', 'cai rieng', 'cai chung', 'don nhat', 'phạm trù 1'],
+                targetId: 'tab1',
+                tabId: 'tab1'
+            },
+            {
+                keywords: ['nguyên nhân', 'kết quả', 'nguyen nhan', 'ket qua', 'nhân quả', 'phạm trù 2'],
+                targetId: 'tab2',
+                tabId: 'tab2'
+            },
+            {
+                keywords: ['tất nhiên', 'ngẫu nhiên', 'tat nhien', 'ngau nhien', 'phạm trù 3'],
+                targetId: 'tab3',
+                tabId: 'tab3'
+            },
+            {
+                keywords: ['nội dung', 'hình thức', 'noi dung', 'hinh thuc', 'chủ nghĩa hình thức', 'phạm trù 4'],
+                targetId: 'tab4',
+                tabId: 'tab4'
+            },
+            {
+                keywords: ['bản chất', 'hiện tượng', 'ban chat', 'hien tuong', 'tảng băng', 'phạm trù 5'],
+                targetId: 'tab5',
+                tabId: 'tab5'
+            },
+            {
+                keywords: ['khả năng', 'hiện thực', 'kha nang', 'hien thuc', 'tiền đề', 'phạm trù 6'],
+                targetId: 'tab6',
+                tabId: 'tab6'
+            },
+            {
+                keywords: ['ai', 'trí tuệ nhân tạo', 'tri tue nhan tao', 'việc làm', 'chatgpt', 'gemini', 'claude', 'tự động hóa'],
+                targetId: 'ai-discussion',
+                tabId: null
+            },
+            {
+                keywords: ['tài liệu', 'tai lieu', 'giáo trình', 'marxists', 'tham khảo'],
+                targetId: 'references',
+                tabId: null
+            }
+        ];
+
+        function handleSearch(query) {
+            query = query.trim().toLowerCase();
+            if (!query) {
+                if (clearBtn) clearBtn.style.display = 'none';
+                return;
+            }
+            if (clearBtn) clearBtn.style.display = 'block';
+
+            let matched = null;
+            for (const item of conceptIndex) {
+                if (item.keywords.some((kw) => kw.includes(query) || query.includes(kw))) {
+                    matched = item;
+                    break;
+                }
+            }
+
+            if (matched) {
+                if (matched.tabId && typeof window.switchCategoryTab === 'function') {
+                    window.switchCategoryTab(matched.tabId);
+                }
+                const el = document.getElementById(matched.targetId);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.classList.remove('search-highlight-pulse');
+                    void el.offsetWidth;
+                    el.classList.add('search-highlight-pulse');
+                    setTimeout(() => el.classList.remove('search-highlight-pulse'), 2500);
+                }
+            }
+        }
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch(input.value);
+            }
+        });
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                input.value = '';
+                clearBtn.style.display = 'none';
+                input.focus();
+            });
+        }
+
+        tags.forEach((tag) => {
+            tag.addEventListener('click', () => {
+                const q = tag.dataset.query || tag.textContent.trim();
+                input.value = q;
+                handleSearch(q);
             });
         });
     }
@@ -238,15 +417,20 @@
 
         $$('.stat-number').forEach((el) => counterObserver.observe(el));
 
-        window.addEventListener('scroll', updateNavbar, { passive: true });
+        window.addEventListener('scroll', () => {
+            updateNavbar();
+            updateReadingProgress();
+        }, { passive: true });
         updateNavbar();
+        updateReadingProgress();
 
         if (hamburger) {
             hamburger.addEventListener('click', toggleMenu);
         }
 
         initTabs();
-
+        initQuickSearch();
+        initLightbox();
         initQuiz();
     }
 

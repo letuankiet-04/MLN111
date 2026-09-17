@@ -15,6 +15,11 @@
 </head>
 
 <body>
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress-container">
+        <div id="reading-progress-bar"></div>
+    </div>
+
     <div class="particles-bg">
         <canvas id="particles-canvas"></canvas>
     </div>
@@ -77,7 +82,25 @@
                     <span>Tài liệu tham khảo</span>
                 </a>
             </div>
-            <div class="hero-stats animate-fade-in delay-3">
+
+            <!-- Quick Concept Search -->
+            <div class="search-widget-wrap animate-slide-up delay-3">
+                <div class="search-input-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="concept-search-input" placeholder="Tìm kiếm nhanh khái niệm (Ví dụ: Bản chất, AI, Mối liên hệ, Khả năng...)" autocomplete="off">
+                    <button class="search-clear-btn" id="search-clear-btn" title="Xóa tìm kiếm"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="search-tags">
+                    <button class="search-tag-chip" data-query="mối liên hệ"><i class="fas fa-project-diagram"></i> Mối liên hệ</button>
+                    <button class="search-tag-chip" data-query="phát triển"><i class="fas fa-seedling"></i> Sự phát triển</button>
+                    <button class="search-tag-chip" data-query="siêu hình"><i class="fas fa-balance-scale"></i> So sánh Siêu hình</button>
+                    <button class="search-tag-chip" data-query="bản chất"><i class="fas fa-mountain"></i> Bản chất & Hiện tượng</button>
+                    <button class="search-tag-chip" data-query="khả năng"><i class="fas fa-hourglass-half"></i> Khả năng & Hiện thực</button>
+                    <button class="search-tag-chip" data-query="ai"><i class="fas fa-robot"></i> AI & Việc làm</button>
+                </div>
+            </div>
+
+            <div class="hero-stats animate-fade-in delay-3" style="margin-top: 36px;">
                 <div class="stat-item">
                     <div class="stat-number" data-target="2">0</div>
                     <div class="stat-label">Nguyên lý cơ bản</div>
@@ -120,7 +143,7 @@
             </div>
 
             <div class="principles-grid">
-                <article class="principle-card reveal left">
+                <article class="principle-card reveal left" id="principle-1-card">
                     <div class="card-glow"></div>
                     <div class="card-icon">
                         <div class="icon-circle">
@@ -131,29 +154,52 @@
                     <div class="card-body">
                         <h3 class="card-title">Nguyên lý về mối liên hệ phổ biến</h3>
                         <div class="card-divider"></div>
+                        
+                        <!-- Visual Image Card -->
+                        <div class="visual-card-banner" data-img="assets/images/principle_connection.jpg" data-title="Nguyên lý Mối liên hệ phổ biến" data-desc="Minh họa tính chỉnh thể, thống nhất của thế giới khách quan qua mạng lưới kết nối vô tận giữa tự nhiên, tư duy và xã hội.">
+                            <img src="assets/images/principle_connection.jpg" alt="Nguyên lý Mối liên hệ phổ biến" loading="lazy">
+                            <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                            <div class="visual-card-overlay">
+                                <div class="visual-card-caption">Mạng lưới kết nối chỉnh thể: Tự nhiên, xã hội và tư duy luôn tác động qua lại</div>
+                                <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+
                         <p class="card-text">
                             Thế giới khách quan là một thể thống nhất, trong đó mọi sự vật, hiện tượng
                             đều có <strong>mối liên hệ hữu cơ</strong>, phụ thuộc và tác động lẫn nhau.
                             Không có một sự vật nào tồn tại cô lập, tách rời khỏi những sự vật khác.
                         </p>
+                        
                         <div class="card-points">
                             <div class="point-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Tính phổ biến:</strong> Mọi sự vật đều liên kết với nhau</span>
+                                <span><strong>Tính phổ biến:</strong> Mọi sự vật trong tự nhiên, xã hội và tư duy đều liên kết chặt chẽ</span>
                             </div>
                             <div class="point-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Tính đa dạng:</strong> Nhiều dạng liên hệ khác nhau</span>
+                                <span><strong>Tính đa dạng:</strong> Liên hệ bên trong - bên ngoài, trực tiếp - gián tiếp, chủ yếu - thứ yếu</span>
                             </div>
                             <div class="point-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Tính điều kiện:</strong> Liên hệ thay đổi theo điều kiện</span>
+                                <span><strong>Tính điều kiện:</strong> Mối liên hệ luôn vận hành trong không gian, thời gian và hoàn cảnh cụ thể</span>
                             </div>
+                        </div>
+
+                        <div class="quote-callout">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>"Tất cả các quá trình trong tự nhiên đều liên hệ với nhau một cách phổ biến, và không thể nghiên cứu một quá trình nào nếu tách rời nó khỏi các quá trình khác."</p>
+                            <div class="quote-author"><i class="fas fa-feather-alt"></i> Ph.Ăng-ghen — <em>Biện chứng của tự nhiên</em></div>
+                        </div>
+
+                        <div style="margin-top: 18px; padding: 14px 18px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; border-left: 3px solid var(--primary);">
+                            <strong style="color: #a5b4fc; display: block; margin-bottom: 6px;"><i class="fas fa-lightbulb"></i> Ý nghĩa phương pháp luận:</strong>
+                            <span style="font-size: 0.92rem; color: var(--light-2);">Đòi hỏi phải quán triệt <strong>Quan điểm toàn diện</strong> (tránh phiến diện, một chiều) và <strong>Quan điểm lịch sử - cụ thể</strong> (phân tích sự vật trong bối cảnh không - thời gian nhất định).</span>
                         </div>
                     </div>
                 </article>
 
-                <article class="principle-card reveal right">
+                <article class="principle-card reveal right" id="principle-2-card">
                     <div class="card-glow"></div>
                     <div class="card-icon">
                         <div class="icon-circle secondary">
@@ -164,27 +210,120 @@
                     <div class="card-body">
                         <h3 class="card-title">Nguyên lý về sự phát triển</h3>
                         <div class="card-divider"></div>
+
+                        <!-- Visual Image Card -->
+                        <div class="visual-card-banner" data-img="assets/images/principle_development.jpg" data-title="Nguyên lý về sự phát triển" data-desc="Sự vận động biện chứng theo đường xoáy ốc đi lên, cái mới kế thừa và thay thế cái cũ từ công cụ sơ khai đến cách mạng công nghệ số.">
+                            <img src="assets/images/principle_development.jpg" alt="Nguyên lý về sự phát triển" loading="lazy">
+                            <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                            <div class="visual-card-overlay">
+                                <div class="visual-card-caption">Đường xoáy ốc tiến hóa đi lên: Kế thừa tinh hoa cũ để kiến tạo nấc thang phát triển mới</div>
+                                <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+
                         <p class="card-text">
                             Thế giới không phải là tập hợp của những sự vật cố định, bất biến,
                             mà là <strong>quá trình phát triển không ngừng</strong>, từ thấp đến cao,
-                            từ đơn giản đến phức tạp, với sự lặp lại hình thức nhưng có nội dung mới.
+                            từ đơn giản đến phức tạp, cái mới ra đời thay thế cái cũ trên nền tảng kế thừa.
                         </p>
+                        
                         <div class="card-points">
                             <div class="point-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Tính vĩnh cửu:</strong> Phát triển không có điểm cuối</span>
+                                <span><strong>Tính vĩnh cửu:</strong> Quá trình vận động, phát triển diễn ra liên tục, không có điểm dừng</span>
                             </div>
                             <div class="point-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Tính quy luật:</strong> Tuân theo quy luật khách quan</span>
+                                <span><strong>Tính quy luật:</strong> Tuân theo các quy luật khách quan độc lập với ý thức chủ quan</span>
                             </div>
                             <div class="point-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span><strong>Tính lên trên:</strong> Từ thấp đến cao, tiến bộ</span>
+                                <span><strong>Tính lên trên:</strong> Khuynh hướng tiến bộ theo đường xoáy ốc (phủ định của phủ định)</span>
                             </div>
+                        </div>
+
+                        <div class="quote-callout">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>"Sự phát triển hình như lặp lại những giai đoạn đã qua, nhưng dưới một hình thức khác, ở một trình độ cao hơn... theo đường xoáy ốc, chứ không phải theo đường thẳng."</p>
+                            <div class="quote-author"><i class="fas fa-feather-alt"></i> V.I.Lênin — <em>Các Mác (1914)</em></div>
+                        </div>
+
+                        <div style="margin-top: 18px; padding: 14px 18px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; border-left: 3px solid var(--accent);">
+                            <strong style="color: var(--accent); display: block; margin-bottom: 6px;"><i class="fas fa-rocket"></i> Ý nghĩa phương pháp luận:</strong>
+                            <span style="font-size: 0.92rem; color: var(--light-2);">Đòi hỏi phải quán triệt <strong>Quan điểm phát triển</strong>: Nhìn nhận sự vật trong xu hướng vận động đi lên, ủng hộ cái mới tiến bộ, kiên quyết chống tư duy bảo thủ, trì trệ, định kiến.</span>
                         </div>
                     </div>
                 </article>
+            </div>
+
+            <!-- Dialectics vs Metaphysics Comparison Table -->
+            <div class="comparison-section-box reveal" id="comparison-box">
+                <h3 class="comparison-title">Đối chiếu: <span class="gradient-text">Tư duy Biện chứng</span> vs <span style="color:#fca5a5;">Tư duy Siêu hình</span></h3>
+                <p class="comparison-subtitle">Hiểu rõ sự khác biệt giữa hai phương pháp tư duy nền tảng trong lịch sử triết học để nhận thức thế giới đúng đắn.</p>
+
+                <!-- Visual Image Card: Biện chứng vs Siêu hình -->
+                <div class="visual-card-banner" data-img="assets/images/dialectics_comparison.jpg" data-title="Đối chiếu hai Phương pháp Tư duy" data-desc="Bên trái: Thế giới siêu hình – cô lập, tĩnh tại, đen trắng, sự vật bị giam trong lồng kính tách rời. Bên phải: Thế giới biện chứng – sống động, kết nối, vận động, đầy sắc màu và sinh khí.">
+                    <img src="assets/images/dialectics_comparison.jpg" alt="Tư duy Biện chứng vs Siêu hình" loading="lazy">
+                    <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                    <div class="visual-card-overlay">
+                        <div class="visual-card-caption">Hai lăng kính nhìn thế giới: Siêu hình cô lập – Biện chứng kết nối</div>
+                        <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <div class="comparison-grid-table">
+                    <div class="comparison-col metaphysics">
+                        <div class="comparison-col-header">
+                            <div class="comparison-badge-icon"><i class="fas fa-times-circle"></i></div>
+                            <div>
+                                <h3>Phương pháp Siêu hình</h3>
+                                <span style="font-size:0.8rem; color:#fca5a5;">(Nhận thức phiến diện, tĩnh tại)</span>
+                            </div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">1. Cách nhìn nhận sự vật</div>
+                            <div class="comparison-desc">Xem các sự vật tồn tại <strong>cô lập, tách rời</strong>; chỉ thấy cây mà không thấy rừng, ranh giới giữa các sự vật là tuyệt đối bất biến.</div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">2. Trạng thái vận động</div>
+                            <div class="comparison-desc">Xem sự vật ở trạng thái <strong>tĩnh tại</strong>; nếu có biến đổi thì chỉ là tăng/giảm đơn thuần về số lượng, vị trí bên ngoài mà không có biến đổi về chất.</div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">3. Nguồn gốc vận động</div>
+                            <div class="comparison-desc">Cho rằng nguyên nhân vận động nằm ở <strong>bên ngoài sự vật</strong> (cú hích đầu tiên từ đấng sáng tạo hoặc yếu tố ngoại lai).</div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">4. Hậu quả thực tiễn</div>
+                            <div class="comparison-desc">Dẫn đến tư duy <strong>bảo thủ, trì trệ, giáo điều</strong>, dễ rơi vào bế tắc và sai lầm trước những biến động nhanh chóng của thực tiễn.</div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-col dialectics">
+                        <div class="comparison-col-header">
+                            <div class="comparison-badge-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>
+                                <h3>Phương pháp Biện chứng duy vật</h3>
+                                <span style="font-size:0.8rem; color:#6ee7b7;">(Nhận thức chỉnh thể, vận động)</span>
+                            </div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">1. Cách nhìn nhận sự vật</div>
+                            <div class="comparison-desc">Xem sự vật trong <strong>mối liên hệ phổ biến</strong>, tác động qua lại, chuyển hóa và phụ thuộc lẫn nhau trong một chỉnh thể thống nhất.</div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">2. Trạng thái vận động</div>
+                            <div class="comparison-desc">Xem sự vật luôn trong <strong>quá trình vận động, phát triển không ngừng</strong>, cái mới thay thế cái cũ theo đường xoáy ốc đi lên.</div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">3. Nguồn gốc vận động</div>
+                            <div class="comparison-desc">Nguồn gốc là sự đấu tranh và giải quyết <strong>mâu thuẫn nội tại</strong> nằm ngay bên trong bản thân sự vật, hiện tượng.</div>
+                        </div>
+                        <div class="comparison-item-row">
+                            <div class="comparison-label">4. Hậu quả thực tiễn</div>
+                            <div class="comparison-desc">Tạo lập tư duy <strong>toàn diện, linh hoạt, đổi mới sáng tạo</strong>, luôn chủ động thích ứng và định hướng cải tạo thực tiễn hiệu quả.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -242,6 +381,16 @@
                         <i class="fas fa-layer-group"></i>
                         <span>Cặp phạm trù 01</span>
                         <h2>Cái riêng – Cái chung – Cái đơn nhất</h2>
+                    </div>
+
+                    <!-- Visual Image Card: Cái riêng - Cái chung - Cái đơn nhất -->
+                    <div class="visual-card-banner" data-img="assets/images/particular_general.jpg" data-title="Cặp phạm trù Cái riêng – Cái chung – Cái đơn nhất" data-desc="Nhiều bông hoa đa dạng (cái riêng) cùng chia sẻ thuộc tính 'hoa' (cái chung), nhưng mỗi bông mang nét riêng biệt không lặp lại (cái đơn nhất). Cái chung tồn tại trong cái riêng, cái riêng phong phú hơn cái chung.">
+                        <img src="assets/images/particular_general.jpg" alt="Cái riêng – Cái chung – Cái đơn nhất" loading="lazy">
+                        <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                        <div class="visual-card-overlay">
+                            <div class="visual-card-caption">Sự thống nhất biện chứng: Mỗi bông hoa là cái riêng, tất cả đều chứa cái chung, và mỗi bông mang cái đơn nhất không lặp lại</div>
+                            <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                        </div>
                     </div>
 
                     <div class="sub-section concept reveal">
@@ -319,6 +468,24 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Enhanced Practical Case Study & Takeaway -->
+                    <div class="category-dual-layout reveal">
+                        <div class="case-study-box">
+                            <span class="case-study-badge"><i class="fas fa-landmark"></i> Vận dụng thực tiễn Việt Nam</span>
+                            <h4 class="case-study-title">Mô hình Kinh tế thị trường định hướng XHCN</h4>
+                            <p class="case-study-text">
+                                Kinh tế thị trường là <strong>Cái chung</strong> của văn minh nhân loại (quy luật cung cầu, cạnh tranh, lưu thông tiền tệ). Khi vận dụng vào điều kiện lịch sử và thể chế chính trị đặc thù của Việt Nam (<strong>Cái riêng</strong>), Đảng ta đã sáng tạo nên mô hình <em>Kinh tế thị trường định hướng XHCN</em>, vừa giải phóng mạnh mẽ sức sản xuất vừa bảo đảm an sinh và công bằng xã hội.
+                            </p>
+                        </div>
+                        <div class="key-takeaway-pill">
+                            <div class="takeaway-icon"><i class="fas fa-lightbulb"></i></div>
+                            <div class="takeaway-content">
+                                <h4>Công thức ghi nhớ cốt tử</h4>
+                                <p><strong>Cái riêng = Cái chung + Cái đơn nhất</strong>.<br>Cái riêng phong phú toàn bộ, cái chung sâu sắc bản chất. Muốn hiểu cái chung phải bắt đầu từ việc nghiên cứu từng cái riêng!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ===== TAB 2: NGUYÊN NHÂN – KẾT QUẢ ===== -->
@@ -327,6 +494,16 @@
                         <i class="fas fa-link"></i>
                         <span>Cặp phạm trù 02</span>
                         <h2>Nguyên nhân – Kết quả</h2>
+                    </div>
+
+                    <!-- Visual Image Card: Nguyên nhân - Kết quả -->
+                    <div class="visual-card-banner" data-img="assets/images/cause_effect.jpg" data-title="Cặp phạm trù Nguyên nhân – Kết quả" data-desc="Chuỗi domino triết học: Mỗi quân domino đổ (nguyên nhân) tạo ra sự biến đổi cho quân tiếp theo (kết quả), và kết quả đó lại trở thành nguyên nhân mới trong chuỗi nhân quả vô tận.">
+                        <img src="assets/images/cause_effect.jpg" alt="Nguyên nhân và Kết quả" loading="lazy">
+                        <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                        <div class="visual-card-overlay">
+                            <div class="visual-card-caption">Chuỗi nhân quả vô tận: Nguyên nhân sinh kết quả, kết quả tác động trở lại nguyên nhân</div>
+                            <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                        </div>
                     </div>
 
                     <div class="tab-grid">
@@ -398,6 +575,24 @@
                                 để tạo tiền đề cho những nguyên nhân mới trong thực tiễn.</li>
                         </ul>
                     </div>
+
+                    <!-- Enhanced Practical Case Study & Takeaway -->
+                    <div class="category-dual-layout reveal">
+                        <div class="case-study-box">
+                            <span class="case-study-badge"><i class="fas fa-globe-asia"></i> Bài toán toàn cầu</span>
+                            <h4 class="case-study-title">Chuỗi Nhân quả trong Biến đổi Khí hậu</h4>
+                            <p class="case-study-text">
+                                Phát thải carbon (Nguyên nhân) → Trái đất nóng lên, băng tan (Kết quả). Tuy nhiên, băng tan làm giảm diện tích phản xạ nhiệt và giải phóng khí metan lại trở thành <strong>Nguyên nhân mới</strong> thúc đẩy nhiệt độ tăng phi mã (Kết quả tác động ngược lại nguyên nhân). Để giải quyết vấn đề, nhân loại phải triệt tiêu nguyên nhân gốc bằng cam kết phát thải ròng bằng 0 (Net Zero).
+                            </p>
+                        </div>
+                        <div class="key-takeaway-pill">
+                            <div class="takeaway-icon"><i class="fas fa-link"></i></div>
+                            <div class="takeaway-content">
+                                <h4>Quy tắc trị bệnh tận gốc</h4>
+                                <p>Nguyên nhân luôn đi trước kết quả. Muốn loại bỏ hậu quả xấu phải loại bỏ nguyên nhân sinh ra nó. Đừng chỉ trị ngọn mà quên gốc rễ!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ===== TAB 3: TẤT NHIÊN – NGẪU NHIÊN ===== -->
@@ -406,6 +601,16 @@
                         <i class="fas fa-crosshairs"></i>
                         <span>Cặp phạm trù 03</span>
                         <h2>Tất nhiên – Ngẫu nhiên</h2>
+                    </div>
+
+                    <!-- Visual Image Card: Tất nhiên - Ngẫu nhiên -->
+                    <div class="visual-card-banner" data-img="assets/images/necessity_chance.jpg" data-title="Cặp phạm trù Tất nhiên – Ngẫu nhiên" data-desc="Dòng sông chảy tất yếu về biển (tất nhiên) nhưng trải qua muôn vàn khúc ngoặt, phân nhánh bất ngờ (ngẫu nhiên). Tất nhiên vạch đường đi thông qua vô số cái ngẫu nhiên.">
+                        <img src="assets/images/necessity_chance.jpg" alt="Tất nhiên và Ngẫu nhiên" loading="lazy">
+                        <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                        <div class="visual-card-overlay">
+                            <div class="visual-card-caption">Dòng sông tất yếu: Tất nhiên vạch đường đi thông qua vô số ngẫu nhiên</div>
+                            <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                        </div>
                     </div>
 
                     <div class="tab-grid">
@@ -479,6 +684,24 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Enhanced Practical Case Study & Takeaway -->
+                    <div class="category-dual-layout reveal">
+                        <div class="case-study-box">
+                            <span class="case-study-badge"><i class="fas fa-flask"></i> Đột phá Khoa học</span>
+                            <h4 class="case-study-title">Phát minh Penicillin của Alexander Fleming</h4>
+                            <p class="case-study-text">
+                                Việc bào tử nấm mốc vô tình bay vào đĩa thạch nuôi cấy vi khuẩn là yếu tố <strong>Ngẫu nhiên</strong>. Nhưng việc nấm tiết ra chất kháng khuẩn diệt khuẩn và nhu cầu lịch sử của y học tìm kiếm kháng sinh là cái <strong>Tất nhiên</strong>. Cái tất nhiên đã tự mở đường đi thông qua sự ngẫu nhiên của một nhà khoa học có tư duy nhạy bén và quan sát khoa học sâu sắc.
+                            </p>
+                        </div>
+                        <div class="key-takeaway-pill">
+                            <div class="takeaway-icon"><i class="fas fa-crosshairs"></i></div>
+                            <div class="takeaway-content">
+                                <h4>Nguyên tắc cốt lõi</h4>
+                                <p>Hành động phải dựa trên cái Tất nhiên (quy luật khách quan), tuyệt đối không phó mặc cho Ngẫu nhiên (may rủi); nhưng luôn phải dự phòng linh hoạt trước các yếu tố bất ngờ.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ===== TAB 4: NỘI DUNG – HÌNH THỨC ===== -->
@@ -487,6 +710,16 @@
                         <i class="fas fa-shapes"></i>
                         <span>Cặp phạm trù 04</span>
                         <h2>Nội dung – Hình thức</h2>
+                    </div>
+
+                    <!-- Visual Image Card: Nội dung - Hình thức -->
+                    <div class="visual-card-banner" data-img="assets/images/content_form.jpg" data-title="Cặp phạm trù Nội dung – Hình thức" data-desc="Cùng một nội dung H₂O nhưng biểu hiện qua nhiều hình thức khác nhau: tinh thể băng, nước lỏng chảy thành sông, hơi nước bốc thành mây, giọt mưa rơi và bông tuyết kết tinh. Nội dung quyết định hình thức, hình thức tác động trở lại nội dung.">
+                        <img src="assets/images/content_form.jpg" alt="Nội dung và Hình thức" loading="lazy">
+                        <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                        <div class="visual-card-overlay">
+                            <div class="visual-card-caption">Cùng nội dung H₂O, muôn hình vạn trạng: Nội dung quyết định hình thức biểu hiện</div>
+                            <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                        </div>
                     </div>
 
                     <div class="tab-grid">
@@ -519,7 +752,7 @@
                             <ul class="side-list">
                                 <li><i class="fas fa-arrow-left"></i> Là cách thức <em>biểu hiện ra bên ngoài</em></li>
                                 <li><i class="fas fa-arrow-left"></i> <strong>Phụ thuộc</strong> vào nội dung, nhưng có
-                                    độc lập tương đối</li>
+                                     độc lập tương đối</li>
                                 <li><i class="fas fa-arrow-left"></i> <em>Tương đối ổn định</em>, lâu bền hơn</li>
                             </ul>
                         </div>
@@ -562,6 +795,24 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Enhanced Practical Case Study & Takeaway -->
+                    <div class="category-dual-layout reveal">
+                        <div class="case-study-box">
+                            <span class="case-study-badge"><i class="fas fa-laptop-code"></i> Chuyển đổi số</span>
+                            <h4 class="case-study-title">Đổi mới Hình thức Quản trị và Giáo dục số</h4>
+                            <p class="case-study-text">
+                                Nội dung dạy và học hiện đại đòi hỏi tính tương tác, trực quan hóa và phản hồi tức thì. Nếu vẫn cố bám vào <strong>Hình thức</strong> độc thoại đọc - chép cũ thì nội dung giáo dục sẽ bị kìm hãm nặng nề. Chuyển sang mô hình EdTech, bài giảng tương tác và thi trắc nghiệm số là sự đổi mới hình thức kịp thời để giải phóng nội dung chất lượng cao.
+                            </p>
+                        </div>
+                        <div class="key-takeaway-pill">
+                            <div class="takeaway-icon"><i class="fas fa-shapes"></i></div>
+                            <div class="takeaway-content">
+                                <h4>Chống chủ nghĩa hình thức</h4>
+                                <p>Nội dung quyết định hình thức. Khi xem xét đánh giá phải coi trọng nội dung thực chất, chống thói phô trương rỗng tuếch, nhưng phải kịp thời cải tiến hình thức để thúc đẩy sự vật!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ===== TAB 5: BẢN CHẤT – HIỆN TƯỢNG ===== -->
@@ -570,6 +821,16 @@
                         <i class="fas fa-mountain"></i>
                         <span>Cặp phạm trù 05</span>
                         <h2>Bản chất – Hiện tượng</h2>
+                    </div>
+
+                    <!-- Visual Image Card: Essence and Phenomenon -->
+                    <div class="visual-card-banner" data-img="assets/images/essence_phenomenon.jpg" data-title="Cặp phạm trù Bản chất & Hiện tượng" data-desc="Ẩn dụ tảng băng trôi triết học: Bề mặt sóng nước lung linh đa sắc là Hiện tượng bên ngoài; khối tinh thể ngầm sâu vững chắc với lõi năng lượng ấm áp là Bản chất quy định sự tồn tại.">
+                        <img src="assets/images/essence_phenomenon.jpg" alt="Bản chất và Hiện tượng" loading="lazy">
+                        <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                        <div class="visual-card-overlay">
+                            <div class="visual-card-caption">Ẩn dụ tảng băng triết học: Đừng để hiện tượng bề mặt đánh lừa bản chất ngầm sâu</div>
+                            <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                        </div>
                     </div>
 
                     <div class="tab-grid">
@@ -641,6 +902,24 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Enhanced Practical Case Study & Takeaway -->
+                    <div class="category-dual-layout reveal">
+                        <div class="case-study-box">
+                            <span class="case-study-badge"><i class="fas fa-chart-line"></i> Kinh tế học</span>
+                            <h4 class="case-study-title">Giá cả thị trường và Quy luật Giá trị</h4>
+                            <p class="case-study-text">
+                                Trên thị trường, giá cả hàng hóa biến động tăng giảm liên tục theo từng ngày, từng giờ dưới tác động của cung - cầu, thời tiết, tâm lý đám đông (<strong>Hiện tượng</strong>). Nhưng trục xoay trung tâm chi phối toàn bộ giá cả chính là lượng hao phí lao động xã hội cần thiết để sản xuất hàng hóa đó (<strong>Bản chất - Quy luật giá trị</strong>). Nhận thức được điều này giúp các nhà kinh tế hoạch định chính sách vĩ mô vững chắc.
+                            </p>
+                        </div>
+                        <div class="key-takeaway-pill">
+                            <div class="takeaway-icon"><i class="fas fa-eye"></i></div>
+                            <div class="takeaway-content">
+                                <h4>Nhìn xuyên bề mặt</h4>
+                                <p>Hiện tượng phong phú nhưng có thể phản ánh sai lệch bản chất (hiện tượng giả). Muốn hiểu chân lý phải dùng tư duy trừu tượng đi sâu bóc tách bản chất bên trong!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ===== TAB 6: KHẢ NĂNG – HIỆN THỰC ===== -->
@@ -649,6 +928,16 @@
                         <i class="fas fa-hourglass-half"></i>
                         <span>Cặp phạm trù 06</span>
                         <h2>Khả năng – Hiện thực</h2>
+                    </div>
+
+                    <!-- Visual Image Card: Possibility and Reality -->
+                    <div class="visual-card-banner" data-img="assets/images/possibility_reality.jpg" data-title="Cặp phạm trù Khả năng & Hiện thực" data-desc="Minh họa hạt mầm ánh sáng vươn ra nhiều nhánh tiềm năng tương lai (Khả năng), với một nhánh rực rỡ kết tinh thành hiện thực vững chắc nhờ hội tụ đủ điều kiện và sự tác động tích cực của con người.">
+                        <img src="assets/images/possibility_reality.jpg" alt="Khả năng và Hiện thực" loading="lazy">
+                        <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                        <div class="visual-card-overlay">
+                            <div class="visual-card-caption">Hạt mầm ánh sáng và các nhánh tiềm năng: Hiện thực hóa khả năng bằng hành động</div>
+                            <span class="visual-card-action">Bấm để xem chi tiết ảnh <i class="fas fa-arrow-right"></i></span>
+                        </div>
                     </div>
 
                     <div class="tab-grid">
@@ -726,6 +1015,24 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Enhanced Practical Case Study & Takeaway -->
+                    <div class="category-dual-layout reveal">
+                        <div class="case-study-box">
+                            <span class="case-study-badge"><i class="fas fa-rocket"></i> Đổi mới sáng tạo</span>
+                            <h4 class="case-study-title">Hiện thực hóa Ý tưởng Khởi nghiệp (Startup)</h4>
+                            <p class="case-study-text">
+                                Một ý tưởng khởi nghiệp độc đáo ban đầu chỉ là <strong>Khả năng</strong>. Khả năng đó không bao giờ tự biến thành doanh nghiệp kỳ lân (<strong>Hiện thực</strong>) nếu thiếu vốn, công nghệ, nhu cầu thị trường và đặc biệt là <strong>nhân tố chủ quan</strong>: sự kiên trì, bản lĩnh và năng lực quản trị của đội ngũ sáng lập chuẩn bị đầy đủ các điều kiện cần và đủ.
+                            </p>
+                        </div>
+                        <div class="key-takeaway-pill">
+                            <div class="takeaway-icon"><i class="fas fa-hourglass-start"></i></div>
+                            <div class="takeaway-content">
+                                <h4>Hành động có cơ sở</h4>
+                                <p>Hành động phải bắt nguồn từ hiện thực (tránh ảo tưởng), tính toán toàn diện mọi khả năng và chủ động chuẩn bị các điều kiện để biến khả năng tích cực thành hiện thực!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -748,6 +1055,35 @@
                     Sử dụng hai nguyên lý và sáu cặp phạm trù của phép biện chứng duy vật
                     để phân tích một vấn đề thời đại: ảnh hưởng của AI đến việc làm của con người.
                 </p>
+            </div>
+
+            <!-- AI Hero Visual Banner -->
+            <div class="ai-hero-banner reveal" data-img="assets/images/ai_human_dialectic.jpg" data-title="Mối quan hệ Biện chứng giữa Con người & Trí tuệ Nhân tạo" data-desc="Tác phẩm nghệ thuật triết học trực quan hóa sự cộng sinh giữa tư duy, ý thức, cảm xúc của con người với mạng nơ-ron và dữ liệu thuật toán của AI để cùng kiến tạo những bước nhảy vọt văn minh.">
+                <img src="assets/images/ai_human_dialectic.jpg" alt="Mối quan hệ Biện chứng giữa Con người và AI" loading="lazy">
+                <div class="visual-badge"><i class="fas fa-expand-arrows-alt"></i> Phóng to</div>
+                <div class="ai-hero-overlay">
+                    <h3>Cộng sinh Biện chứng: Trí tuệ Nhân tạo & Lao động Con người</h3>
+                    <p>AI không phải là thế lực đối kháng triệt tiêu con người, mà là công cụ kéo dài năng lực trí tuệ, thúc đẩy bước nhảy vọt về phương thức sản xuất của văn minh nhân loại.</p>
+                </div>
+            </div>
+
+            <!-- 3-Step Dialectical Progression -->
+            <div class="ai-dialectical-steps reveal">
+                <div class="ai-step-card">
+                    <div class="ai-step-badge">01</div>
+                    <h4>1. Mâu thuẫn xuất hiện</h4>
+                    <p>Sự bùng nổ của AI tạo ra mâu thuẫn giữa năng suất tự động hóa cao và các kỹ năng lao động truyền thống lặp lại, buộc thị trường việc làm phải tái cấu trúc.</p>
+                </div>
+                <div class="ai-step-card">
+                    <div class="ai-step-badge">02</div>
+                    <h4>2. Thích nghi & Chuyển hóa</h4>
+                    <p>Con người chủ động nâng cao trình độ, làm chủ công cụ AI, dịch chuyển vai trò từ "người thực thi cơ bắp/nhập liệu" sang "người định hướng, kiểm soát và sáng tạo".</p>
+                </div>
+                <div class="ai-step-card">
+                    <div class="ai-step-badge">03</div>
+                    <h4>3. Nấc thang mới (Phủ định của phủ định)</h4>
+                    <p>Hình thành nền kinh tế tri thức trình độ cao: Năng suất xã hội tăng vọt, con người được giải phóng để tập trung vào giá trị nhân văn, tư duy chiến lược và nghệ thuật.</p>
+                </div>
             </div>
 
             <div class="ai-showcase reveal">
@@ -1096,6 +1432,18 @@
     <button id="back-to-top" class="back-to-top">
         <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- Lightbox Zoom Modal -->
+    <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="lightbox-container">
+            <button class="lightbox-close-btn" id="lightbox-close-btn" title="Đóng phóng to ảnh (Esc)"><i class="fas fa-times"></i></button>
+            <img src="" alt="" class="lightbox-img" id="lightbox-img">
+            <div class="lightbox-meta">
+                <h3 class="lightbox-title" id="lightbox-title"></h3>
+                <p class="lightbox-desc" id="lightbox-desc"></p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
